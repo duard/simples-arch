@@ -1,0 +1,17 @@
+{
+  "Servers": {
+    "simples": {
+      "Name": "simples-pg",
+      "Group": "simples-server",
+      "Host": "pg_container",
+      "Port": 5432,
+      "MaintenanceDB": "postgres",
+      "Username": "admin",
+      "PassFile": "/pgadmin4/pgpass",
+      "SSLMode": "prefer",
+      "SSLCert": "/certs/server.crt",
+      "SSLKey": "/certs/server.key",
+      "SSLCACert": "/certs/ca.crt"
+    }
+  }
+}

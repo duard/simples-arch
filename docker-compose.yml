@@ -1,0 +1,49 @@
+version: "3.8"
+services:
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: simples-pgadmin
+    restart: always
+    networks:
+      - simples-network
+    ports:
+      - 8071:80
+    volumes:
+      - ./config/pgadmin-servers-config.json:/pgadmin4/servers.json
+      - ./config/pgadmin-passwords:/pgadmin4/pgpass:rw
+      - ./config/config_local.py:/pgadmin4/config_local.py:rw
+      - pgadmin_data:/var/lib/pgadmin
+      - certificate_data:/certs
+    environment:
+      - TZ=Europe/Berlin
+      - PGADMIN_DEFAULT_EMAIL=admin@example.com
+      - PGADMIN_DEFAULT_PASSWORD=admin
+      - PGADMIN_CONFIG_SERVER_MODE=False
+      - PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED=False
+    profiles: ["all"]
+
+  simples-db-postgres:
+    image: postgres
+    container_name: pg_container
+    restart: always
+    networks:
+      - simples-network
+    ports:
+      - 5438:5432
+    volumes:
+      - ./config/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+    environment:
+      - TZ=UTC
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=pass
+      - POSTGRES_DB=simplesdb
+      - POSTGRES_HOST_AUTH_METHOD=trust
+    profiles: ["only-db", "all"]
+
+networks:
+  simples-network:
+
+volumes:
+  postgres_data:
+  pgadmin_data:
+  certificate_data:

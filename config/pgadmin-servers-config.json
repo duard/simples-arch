@@ -1,0 +1,14 @@
+{
+  "Servers": {
+    "simplesdb": {
+      "Name": "simples-database",
+      "Group": "Servers",
+      "Host": "pg_container",
+      "Port": 5432,
+      "MaintenanceDB": "simplesdb",
+      "Username": "admin",
+      "PassFile": "/pgpass",
+      "SSLMode": "prefer"
+    }
+  }
+}
