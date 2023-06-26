@@ -7,12 +7,12 @@ CREATE TABLE "persons" (
 );
 
 
-CREATE TABLE "roles" (
+CREATE TABLE "persons_roles" (
   "id" int PRIMARY KEY,
   "role_name" varchar(50) NOT NULL
 );
 
-CREATE TABLE "person_roles" (
+CREATE TABLE "person_roles_association" (
   "person_id" int,
   "role_id" int,
   FOREIGN KEY ("person_id") REFERENCES "persons" ("id"),
@@ -20,18 +20,6 @@ CREATE TABLE "person_roles" (
   PRIMARY KEY ("person_id", "role_id")
 );
 
-CREATE TABLE "address_types" (
-  "id" int PRIMARY KEY,
-  "type" varchar(50) NOT NULL
-);
-
-CREATE TABLE "address_type_association" (
-  "address_id" int,
-  "type_id" int,
-  FOREIGN KEY ("address_id") REFERENCES "addresses" ("id"),
-  FOREIGN KEY ("type_id") REFERENCES "address_types" ("id"),
-  PRIMARY KEY ("address_id", "type_id")
-);
 
 CREATE TABLE "persons_documents" (
   "id" int PRIMARY KEY,
@@ -66,4 +54,29 @@ CREATE TABLE "persons_type_association" (
   FOREIGN KEY ("person_id") REFERENCES "persons" ("id"),
   FOREIGN KEY ("type_id") REFERENCES "persons_types" ("id"),
   PRIMARY KEY ("person_id", "type_id")
+);
+
+
+CREATE TABLE "address_types" (
+  "id" int PRIMARY KEY,
+  "type" varchar(50) NOT NULL
+);
+
+CREATE TABLE "addresses" (
+  "id" int PRIMARY KEY,
+  "person_id" int,
+  "address_line" varchar(100) NOT NULL,
+  "city" varchar(50) NOT NULL,
+  "state" varchar(50) NOT NULL,
+  "country" varchar(50) NOT NULL,
+  FOREIGN KEY ("person_id") REFERENCES "persons" ("id")
+);
+
+
+CREATE TABLE "address_type_association" (
+  "address_id" int,
+  "type_id" int,
+  FOREIGN KEY ("address_id") REFERENCES "addresses" ("id"),
+  FOREIGN KEY ("type_id") REFERENCES "address_types" ("id"),
+  PRIMARY KEY ("address_id", "type_id")
 );
