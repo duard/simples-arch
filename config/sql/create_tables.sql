@@ -1,8 +1,8 @@
 -- https://github.com/jdaarevalo/docker_postgres_with_data/tree/main
 
-CREATE DATABASE simples-db;
+CREATE DATABASE simplesdb;
 
-\c simples-db;
+\c simplesdb;
 
 -- Creation of product table
 CREATE TABLE IF NOT EXISTS product (

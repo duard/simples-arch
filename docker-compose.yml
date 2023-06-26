@@ -32,6 +32,11 @@ services:
       - 5438:5432
     volumes:
       - ./config/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+      - ./config/sql/base_3.sql:/docker-entrypoint-initdb.d/base_3.sql
+      # - ./config/sql/base_1.sql:/docker-entrypoint-initdb.d/base_1.sql
+      # - ./config/sql/base_2.sql:/docker-entrypoint-initdb.d/base_2.sql
+      # - ./config/sql/create_tables.sql:/docker-entrypoint-initdb.d/create_tables.sql
+      # - ./config/sql/fill_tables.sql:/docker-entrypoint-initdb.d/fill_tables.sql
     environment:
       - TZ=UTC
       - POSTGRES_USER=admin
