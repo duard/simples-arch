@@ -1,3 +1,12 @@
+
+CREATE TABLE posts
+(
+    "id" int PRIMARY KEY,
+    title character varying COLLATE pg_catalog."default" NOT NULL,
+    content character varying COLLATE pg_catalog."default" NOT NULL
+);
+
+
 CREATE TABLE IF NOT EXISTS "persons" (
   "id" int PRIMARY KEY,
   "name" varchar(50) NOT NULL
@@ -22,7 +31,7 @@ CREATE TABLE IF NOT EXISTS "persons_documents" (
   "document_id" int,
   "value" varchar(20) NOT NULL,
   FOREIGN KEY ("person_id") REFERENCES "persons" ("id"),
-  FOREIGN KEY ("document_id") REFERENCES "documents" ("id")
+  FOREIGN KEY ("document_id") REFERENCES "persons_documents" ("id")
 );
 
 CREATE TABLE IF NOT EXISTS "document_types" (
