@@ -1,27 +1,22 @@
-CREATE DATABASE persons;
-
-\c persons;
-CREATE TABLE "persons" (
+CREATE TABLE IF NOT EXISTS "persons" (
   "id" int PRIMARY KEY,
   "name" varchar(50) NOT NULL
 );
 
-
-CREATE TABLE "persons_roles" (
+CREATE TABLE IF NOT EXISTS "persons_roles" (
   "id" int PRIMARY KEY,
   "role_name" varchar(50) NOT NULL
 );
 
-CREATE TABLE "person_roles_association" (
+CREATE TABLE IF NOT EXISTS "person_roles_association" (
   "person_id" int,
   "role_id" int,
   FOREIGN KEY ("person_id") REFERENCES "persons" ("id"),
-  FOREIGN KEY ("role_id") REFERENCES "roles" ("id"),
+  FOREIGN KEY ("role_id") REFERENCES "persons_roles" ("id"),
   PRIMARY KEY ("person_id", "role_id")
 );
 
-
-CREATE TABLE "persons_documents" (
+CREATE TABLE IF NOT EXISTS "persons_documents" (
   "id" int PRIMARY KEY,
   "person_id" int,
   "document_id" int,
@@ -30,12 +25,12 @@ CREATE TABLE "persons_documents" (
   FOREIGN KEY ("document_id") REFERENCES "documents" ("id")
 );
 
-CREATE TABLE "document_types" (
+CREATE TABLE IF NOT EXISTS "document_types" (
   "id" int PRIMARY KEY,
   "name" varchar(50) NOT NULL
 );
 
-CREATE TABLE "documents" (
+CREATE TABLE IF NOT EXISTS "documents" (
   "id" int PRIMARY KEY,
   "description" varchar(50) NOT NULL,
   "value" varchar(50) NOT NULL,
@@ -43,12 +38,12 @@ CREATE TABLE "documents" (
   FOREIGN KEY ("document_type_id") REFERENCES "document_types" ("id")
 );
 
-CREATE TABLE "persons_types" (
+CREATE TABLE IF NOT EXISTS "persons_types" (
   "id" int PRIMARY KEY,
   "type" varchar(50) NOT NULL
 );
 
-CREATE TABLE "persons_type_association" (
+CREATE TABLE IF NOT EXISTS "persons_type_association" (
   "person_id" int,
   "type_id" int,
   FOREIGN KEY ("person_id") REFERENCES "persons" ("id"),
@@ -56,13 +51,12 @@ CREATE TABLE "persons_type_association" (
   PRIMARY KEY ("person_id", "type_id")
 );
 
-
-CREATE TABLE "address_types" (
+CREATE TABLE IF NOT EXISTS "address_types" (
   "id" int PRIMARY KEY,
   "type" varchar(50) NOT NULL
 );
 
-CREATE TABLE "addresses" (
+CREATE TABLE IF NOT EXISTS "addresses" (
   "id" int PRIMARY KEY,
   "person_id" int,
   "address_line" varchar(100) NOT NULL,
@@ -72,11 +66,10 @@ CREATE TABLE "addresses" (
   FOREIGN KEY ("person_id") REFERENCES "persons" ("id")
 );
 
-
-CREATE TABLE "address_type_association" (
+CREATE TABLE IF NOT EXISTS "address_type_association" (
   "address_id" int,
-  "type_id" int,
+  "type_address_id" int,
   FOREIGN KEY ("address_id") REFERENCES "addresses" ("id"),
-  FOREIGN KEY ("type_id") REFERENCES "address_types" ("id"),
-  PRIMARY KEY ("address_id", "type_id")
+  FOREIGN KEY ("type_address_id") REFERENCES "address_types" ("id"),
+  PRIMARY KEY ("address_id", "type_address_id")
 );
